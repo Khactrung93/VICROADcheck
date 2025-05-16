@@ -20,6 +20,7 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          COOKIES: ${{ secrets.COOKIES }}
           # Thêm biến môi trường khác nếu cần
         run: python CheckMildura.py
 
