@@ -1,0 +1,25 @@
+name: Check Mildura Telegram
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'   # mỗi 15 phút, đổi */30 nếu muốn 30 phút
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run script
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          # Thêm biến môi trường khác nếu cần
+        run: python check_mildura_telegram.py
+
