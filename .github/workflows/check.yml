@@ -21,5 +21,5 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           # Thêm biến môi trường khác nếu cần
-        run: python check_mildura_telegram.py
+        run: python CheckMildura.py
 
