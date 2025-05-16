@@ -1,11 +1,11 @@
 import requests
 import json
 from datetime import datetime
-
+import os
 
 # === Cấu hình của bạn ===
-TELEGRAM_BOT_TOKEN = "8060947068:AAFwKFJ_7Fh8iojnP0pJdu4tjKAOM9CNBy4"
-TELEGRAM_CHAT_ID = "6037054601"
+TELEGRAM_BOT_TOKEN = os.environ['TELEGRAM_BOT_TOKEN']
+TELEGRAM_CHAT_ID = os.environ['TELEGRAM_CHAT_ID']
 YOUR_DATE = "2025-05-28"  # Ngày bạn muốn so sánh (định dạng: YYYY-MM-DD)
 
 # === Thông tin request lấy JSON từ Looker Studio ===
