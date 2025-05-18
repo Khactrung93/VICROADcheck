@@ -9,23 +9,24 @@ TELEGRAM_CHAT_ID = os.environ['TELEGRAM_CHAT_ID']
 YOUR_DATE = "2025-05-28"  # Ngày bạn muốn so sánh (định dạng: YYYY-MM-DD)
 
 # === Thông tin request lấy JSON từ Looker Studio ===
-url = "https://lookerstudio.google.com/embed/u/0/batchedDataV2?appVersion=20250425_0200"
-
+url = "https://lookerstudio.google.com/embed/u/0/batchedDataV2?appVersion=20250516_0901"
 headers = {
     "accept": "application/json, text/plain, */*",
     "accept-language": "vi-VN,vi;q=0.9,en-US;q=0.8,en;q=0.7,fr-FR;q=0.6,fr;q=0.5",
     "content-type": "application/json",
+    "encoding": "null",
     "origin": "https://lookerstudio.google.com",
+    "priority": "u=1, i",
     "referer": "https://lookerstudio.google.com/embed/u/0/reporting/5513a22b-6546-4435-94a7-b00d37cfeae1/page/p_bjphlvetcd",
-    "sec-ch-ua": '"Google Chrome";v="135", "Not-A.Brand";v="8", "Chromium";v="135"',
+    "sec-ch-ua": '"Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"',
     "sec-ch-ua-mobile": "?0",
     "sec-ch-ua-platform": '"Windows"',
     "sec-fetch-dest": "empty",
     "sec-fetch-mode": "cors",
     "sec-fetch-site": "same-origin",
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
-    "x-client-data": "CI22yQEIorbJAQipncoBCJnoygEIlKHLAQiSo8sBCIWgzQEIucjNAQjGzc4BCJ3tzgEI5O3OAQjd7s4B",
-    "x-rap-xsrf-token": "AImk1AKXqN70Ab-sOEh-4yfWzEdgG3lcdg:1747391486296",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+    "x-client-data": "CI22yQEIorbJAQipncoBCJnoygEIlaHLAQiSo8sBCIWgzQEIucjNAQid7c4BCOTtzgE=",
+    "x-rap-xsrf-token": "AImk1AKi1VRgqR31iAvvG9MabTyJ6yX5og:1747557747766"
 }
 
 cookies = json.loads(os.environ['COOKIES'])
@@ -264,6 +265,11 @@ def send_telegram_message(message):
     requests.post(url, data=data)
 
 def get_earliest_mildura_appointment(json_data):
+    if 'dataResponse' not in json_data:
+        print("DEBUG: JSON trả về từ API:", json.dumps(json_data, indent=2))
+        print("Không tìm thấy 'dataResponse' trong dữ liệu trả về!")
+        print(json.dumps(json_data, indent=2))
+        return None
     # column[1] là vị trí, column[3] là ngày
     dataset = json_data['dataResponse'][0]['dataSubset'][0]['dataset']['tableDataset']
     locations = dataset['column'][1]['stringColumn']['values']
